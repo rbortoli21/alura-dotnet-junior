@@ -27,12 +27,15 @@ namespace CasaDoCodigo.Models
         public string Nome { get; private set; }
         [Required]
         public decimal Preco { get; private set; }
+        [Required]
+        public Categoria Categoria { get; set; }
 
-        public Produto(string codigo, string nome, decimal preco)
+        public Produto(string codigo, string nome, decimal preco, Categoria categoria)
         {
             this.Codigo = codigo;
             this.Nome = nome;
             this.Preco = preco;
+            Categoria = categoria;            
         }
     }
 
@@ -80,7 +83,7 @@ namespace CasaDoCodigo.Models
 
     [DataContract]
     public class ItemPedido : BaseModel
-    {   
+    {
         [Required]
         [DataMember]
         public Pedido Pedido { get; private set; }
@@ -131,4 +134,19 @@ namespace CasaDoCodigo.Models
         [Required]
         public virtual Cadastro Cadastro { get; private set; }
     }
+
+    public class Categoria : BaseModel
+    {
+        public string Nome { get; set; }
+        public Categoria(string nome)
+        {
+            this.Nome = nome;
+        }
+        public Categoria()
+        {
+
+        }
+    }
+
+
 }
