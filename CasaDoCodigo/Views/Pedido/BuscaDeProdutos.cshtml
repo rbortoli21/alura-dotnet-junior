@@ -30,7 +30,7 @@
             @{
                 var produtos = new List<Produto>();
              }
-            @foreach (var item in Model.Produtos)
+            @foreach (var item in await Model.Produtos)
             {
                 if (item.Categoria.Nome == categoria.Nome)
                 {

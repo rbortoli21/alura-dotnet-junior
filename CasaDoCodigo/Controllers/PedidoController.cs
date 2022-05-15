@@ -77,7 +77,7 @@ namespace CasaDoCodigo.Controllers
  
         public IActionResult BuscaDeProdutos()
         {
-            BuscaDeProdutosViewModel buscaProdutos = new BuscaDeProdutosViewModel(produtoRepository.GetProdutos(), categoriaRepository.GetCategorias());
+            var buscaProdutos = new BuscaDeProdutosViewModel(produtoRepository.GetProdutos(), categoriaRepository.GetCategorias());
             return View(buscaProdutos);
         }
     }
