@@ -10,6 +10,12 @@ namespace CasaDoCodigo.Repositories
         public CategoriaRepository(ApplicationContext contexto) : base(contexto)
         {
         }
+
+        public List<Categoria> GetCategorias()
+        {
+            return dbSet.ToList();
+        }
+
         public async Task SaveCategorias(string nome)
         {
             if (!contexto.Set<Categoria>().Where(c => c.Nome == nome).Any())
