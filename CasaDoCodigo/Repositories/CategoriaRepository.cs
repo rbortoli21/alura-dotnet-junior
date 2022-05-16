@@ -11,19 +11,19 @@ namespace CasaDoCodigo.Repositories
         {
         }
 
-        public List<Categoria> GetCategorias()
+        public async Task<Categoria> SaveCategorias(string nome)
         {
-            return dbSet.ToList();
-        }
-
-        public async Task SaveCategorias(string nome)
-        {
-            if (!contexto.Set<Categoria>().Where(c => c.Nome == nome).Any())
+            var categoria = dbSet.Where(c => c.Nome == nome).SingleOrDefault();
+            if (categoria == null)
             {
-                var categoria = new Categoria(nome);
-                dbSet.Add(categoria);
+                var novaCategoria = new Categoria()
+                {
+                    Nome = nome
+                };
+                categoria = dbSet.Add(novaCategoria).Entity;
             }
             await contexto.SaveChangesAsync();
+            return categoria;
         }
     }
 }
