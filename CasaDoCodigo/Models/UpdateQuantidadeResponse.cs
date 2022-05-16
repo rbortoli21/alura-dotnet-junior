@@ -16,5 +16,6 @@ namespace CasaDoCodigo.Models
 
         public ItemPedido ItemPedido { get; }
         public CarrinhoViewModel CarrinhoViewModel { get; }
+        
     }
 }

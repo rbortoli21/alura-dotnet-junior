@@ -6,13 +6,11 @@ namespace CasaDoCodigo.Models.ViewModels
 {
     public class BuscaDeProdutosViewModel
     {
-        public IList<Categoria> Categorias { get; set; }
-        public Task<IList<Produto>> Produtos { get; set; }
+        public IList<Produto> Produtos { get; set; }
         public string Pesquisa { get; set; }
-        public bool Encontrou { get; set; }
-        public BuscaDeProdutosViewModel(Task<IList<Produto>> produtos, IList<Categoria> categorias, bool encontrou)
+        public bool Encontrou;
+        public BuscaDeProdutosViewModel(IList<Produto> produtos, bool encontrou)
         {
-            Categorias = categorias;
             Produtos = produtos;
             Encontrou = encontrou;
         }

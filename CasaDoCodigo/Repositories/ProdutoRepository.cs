@@ -24,10 +24,12 @@ namespace CasaDoCodigo.Repositories
         public async Task<IList<Produto>> GetProdutos(string busca)
         {
             IQueryable<Produto> query = dbSet.Include(produto => produto.Categoria);
+
             if (!string.IsNullOrWhiteSpace(busca))
             {
                 query = query.Where(p => p.Nome.Contains(busca) || p.Categoria.Nome.Contains(busca));
             }
+
             return await query.ToListAsync();
         }
 
@@ -35,16 +37,11 @@ namespace CasaDoCodigo.Repositories
         {
             foreach (var livro in livros)
             {
-                await _categoriaRepository.SaveCategorias(livro.Categoria);
-                var categorias = contexto.Set<Categoria>();
-                foreach (var categoria in categorias)
+                if (!dbSet.Where(p => p.Codigo == livro.Codigo).Any())
                 {
-                    if (categoria.Nome == livro.Categoria)
-                        if (!dbSet.Where(p => p.Codigo == livro.Codigo).Any())
-                        {
-                            dbSet.Add(new Produto(livro.Codigo, livro.Nome, livro.Preco, categoria));
-                        }
-                }
+                    Categoria categoria = await _categoriaRepository.SaveCategorias(livro.Categoria);
+                    dbSet.Add(new Produto(livro.Codigo, livro.Nome, livro.Preco, categoria));
+                }   
             }
             await contexto.SaveChangesAsync();
         }
